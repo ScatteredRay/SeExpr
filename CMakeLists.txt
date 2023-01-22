@@ -70,6 +70,8 @@ set(INCLUDE_DIR "${CMAKE_INSTALL_INCLUDEDIR}/SeExpr2")
 # TODO: find GTEST and boost and python the proper ways
 set(BOOST_DIR /usr CACHE PATH "where boost is located")
 
+set(FLTK_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../fltk" CACHE PATH "where fltk is located")
+
 find_package(PythonInterp) # provides Python version check
 find_package(PythonLibs)
 # TODO: switch to FindPython
@@ -88,6 +90,7 @@ endif()
 set(GTEST_DIR "" CACHE STRING "Where to find GTEST")
 option(ENABLE_LLVM_BACKEND "Whether to build with LLVM backend" TRUE)
 option(ENABLE_QT5 "Whether to use Qt5" TRUE)
+option(ENABLE_FLTK "Wheather to use FLTK" TRUE)
 option(ENABLE_SSE4 "Whether to use SSE4" TRUE)
 option(USE_PYTHON "Whether to compile python libraries" TRUE)
 option(BUILD_UTILS "Whether to build the utilities" TRUE)
@@ -219,6 +222,12 @@ else()
                             ${QT_INCLUDE_DIR}/QtGui
                             ${QT_INCLUDE_DIR}/QtOpenGL)
     endif()
+endif()
+
+if (ENABLE_FLTK)
+  set(FLTK_FOUND TRUE)
+  add_subdirectory("${FLTK_DIR}" "${CMAKE_CURRENT_BINARY_DIR}/fltk/")
+  set (FLTK_INCLUDE_DIRS "${FLTK_DIR}" "${CMAKE_CURRENT_BINARY_DIR}/fltk/")
 endif()
 
 if (DEFINED ANIMLIB_DIR)

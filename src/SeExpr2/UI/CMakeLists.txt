@@ -213,3 +213,5 @@ if (Qt5_FOUND OR QT4_FOUND)
                 DESTINATION ${CMAKE_INSTALL_PYTHON})
     endif()
 endif()
+
+add_subdirectory(fltk)
